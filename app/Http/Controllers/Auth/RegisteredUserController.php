@@ -12,10 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Facades\Storage;
->>>>>>> master
 
 class RegisteredUserController extends Controller
 {
