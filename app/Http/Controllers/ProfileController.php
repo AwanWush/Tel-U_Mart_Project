@@ -116,8 +116,13 @@ class ProfileController extends Controller
             ? $validated['alamat_gedung'] 
             : null;
 
+<<<<<<< HEAD
         if (isset($validated['gambar'])) $user->gambar = $validated['gambar'];
         if (isset($validated['password'])) $user->password = $validated['password'];
+=======
+        // if (isset($validated['gambar'])) $user->gambar = $validated['gambar'];
+        // if (isset($validated['password'])) $user->password = $validated['password'];
+>>>>>>> master
 
         $user->save();
 

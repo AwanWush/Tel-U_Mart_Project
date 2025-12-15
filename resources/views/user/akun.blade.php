@@ -135,7 +135,11 @@
 
                             {{-- FORM EDIT PROFIL --}}
                             <div id="profil-form" class="hidden space-y-3">
+<<<<<<< HEAD
                                 <form action="{{ route('user.akun.update', ['tab' => 'profil']) }}" method="POST">
+=======
+                                <form action="{{ route('user.akun.update', ['tab' => 'profil']) }}" method="POST" enctype="multipart/form-data">
+>>>>>>> master
                                     @csrf
                                     @method('PATCH')
 
@@ -164,8 +168,13 @@
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Apakah Penghuni Asrama?</label>
                                         <select name="penghuni_asrama" id="penghuni_asrama" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+<<<<<<< HEAD
                                             <option value="ya" {{ $user->penghuni_asrama === 'ya' ? 'selected' : '' }}>Ya</option>
                                             <option value="tidak" {{ $user->penghuni_asrama === 'tidak' ? 'selected' : '' }}>Tidak</option>
+=======
+                                            <option value="tidak" {{ $user->penghuni_asrama === 'tidak' ? 'selected' : '' }}>Tidak</option>
+                                            <option value="ya" {{ $user->penghuni_asrama === 'ya' ? 'selected' : '' }}>Ya</option>
+>>>>>>> master
                                         </select>
                                     </div>
 
