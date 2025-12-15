@@ -4,12 +4,16 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\KategoriProdukController;
+
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// ==================== DASHBOARD SESUAI ROLE ==================== //
+//==================== DASHBOARD SESUAI ROLE ==================== //
 Route::get('/dashboard', function () {
     $user = Auth::user();
 
@@ -29,6 +33,26 @@ Route::get('/dashboard', function () {
             return view('dashboard.user');       // User login pun ke dashboard user
     }
 })->name('dashboard');
+
+// satu pintu dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
+
+// admin dashboard
+Route::middleware(['auth', 'verified'])->get(
+    '/dashboard/admin',
+    [DashboardController::class, 'admin']
+)->name('dashboard.admin');
+
+// super admin dashboard
+Route::middleware(['auth', 'verified'])->get(
+    '/dashboard/superadmin',
+    [DashboardController::class, 'superadmin']
+)->name('dashboard.superadmin');
+
+// user dashboard
+Route::get('/dashboard/user', [DashboardController::class, 'user'])
+    ->name('dashboard.user');
 
 
 // ==================== Bawaan Breeze ==================== //
@@ -110,3 +134,37 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken();
     return redirect('/login');
 })->name('logout');
+
+
+
+// ==================== ADMINN ==================== //
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('produk', ProdukController::class)->except(['show']);
+    Route::resource('kategori', KategoriProdukController::class)->except(['show']);
+});
+
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::resource('kategori', KategoriProdukController::class);
+// });
+
+Route::middleware(['auth'])->group(function () {
+
+    // KATEGORI PRODUK
+    Route::resource('kategori', KategoriController::class)->except(['show']);
+
+    Route::get('/kategori', [KategoriProdukController::class, 'index'])
+        ->name('kategori.index');
+
+    Route::post('/kategori', [KategoriProdukController::class, 'store'])
+        ->name('kategori.store');
+
+    Route::delete('/kategori/{id}', [KategoriProdukController::class, 'destroy'])
+        ->name('kategori.destroy');
+
+    // PRODUK
+    Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
+    Route::get('/produk/create', [ProdukController::class, 'create'])->name('produk.create');
+    Route::post('/produk', [ProdukController::class, 'store'])->name('produk.store');
+    Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+
+});

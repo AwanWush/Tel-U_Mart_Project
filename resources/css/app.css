@@ -36,3 +36,13 @@ button:hover,
 .text-accent:hover {
     color: var(--accent);
 }
+
+.admin-card{
+@apply bg-white dark:bg-gray-800 rounded-2xl shadow p-6 hover:shadow-lg transition border border-gray-100 dark:border-gray-700;
+}
+.admin-card h4{
+@apply text-xl font-bold text-indigo-600 dark:text-indigo-400;
+}
+.admin-card p{
+@apply text-gray-500 mt-1;
+}
