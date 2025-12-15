@@ -7,6 +7,11 @@ use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+
+
+
 
 
 Route::get('/', function () {
@@ -135,6 +140,18 @@ Route::post('/logout', function () {
     return redirect('/login');
 })->name('logout');
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/cart', [CartController::class,'index'])->name('cart.index');
+    Route::post('/cart/add', [CartController::class,'add'])->name('cart.add');
+    Route::patch('/cart/{id}', [CartController::class,'update'])->name('cart.update');
+    Route::delete('/cart/{id}', [CartController::class,'remove'])->name('cart.remove');
+});
+Route::middleware(['auth'])->post(
+    '/checkout/selected',
+    [CheckoutController::class, 'selected']
+)->name('checkout.selected');
+
+
 
 
 // ==================== ADMINN ==================== //
@@ -168,3 +185,4 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
 
 });
+
