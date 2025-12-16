@@ -5,14 +5,12 @@
         </h2>
     </x-slot>
 
-    {{-- FORM CHECKOUT (PENTING) --}}
     <form method="POST" action="{{ route('checkout.selected') }}">
         @csrf
 
         <div class="py-10">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                {{-- ================= LEFT : CART ITEMS ================= --}}
                 <div class="lg:col-span-2">
 
                     @if($items->count() === 0)
@@ -33,18 +31,15 @@
 
                         <div class="bg-white p-4 mb-4 rounded shadow flex items-center gap-4">
 
-                            {{-- CHECKBOX (EDIT) --}}
                             <input type="checkbox"
                                    class="item-check w-5 h-5"
                                    name="cart_items[]"
                                    value="{{ $item->id }}"
                                    data-subtotal="{{ $subtotal }}">
 
-                            {{-- GAMBAR --}}
                             <img src="{{ asset('storage/'.$item->produk->gambar) }}"
                                  class="w-20 h-20 object-cover rounded">
 
-                            {{-- INFO --}}
                             <div class="flex-1">
                                 <h4 class="font-semibold">
                                     {{ $item->produk->nama_produk }}
@@ -65,7 +60,6 @@
                                 @endif
                             </div>
 
-                            {{-- QTY --}}
                             <div class="flex flex-col items-center">
                                 <form method="POST" action="{{ route('cart.update', $item->id) }}">
                                     @csrf
@@ -83,7 +77,6 @@
                                 </span>
                             </div>
 
-                            {{-- REMOVE --}}
                             <form method="POST" action="{{ route('cart.remove', $item->id) }}">
                                 @csrf
                                 @method('DELETE')
@@ -95,7 +88,6 @@
                     @endforeach
                 </div>
 
-                {{-- ================= RIGHT : ORDER SUMMARY ================= --}}
                 <div class="bg-white p-6 rounded shadow h-fit">
                     <h3 class="font-semibold text-lg mb-4">
                         Order Summary
@@ -123,7 +115,6 @@
                         <span id="totalText">Rp 0</span>
                     </div>
 
-                    {{-- BUTTON SUBMIT (EDIT) --}}
                     <button type="submit"
                             class="w-full mt-5 bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">
                         Checkout
@@ -133,7 +124,6 @@
         </div>
     </form>
 
-    {{-- ================= JS ================= --}}
     <script>
         const checkboxes = document.querySelectorAll('.item-check');
         const subtotalText = document.getElementById('subtotalText');
@@ -155,7 +145,6 @@
             cb.addEventListener('change', hitungTotal);
         });
 
-        // VALIDASI: WAJIB PILIH ITEM
         document.querySelector('form').addEventListener('submit', function (e) {
             if (document.querySelectorAll('.item-check:checked').length === 0) {
                 e.preventDefault();

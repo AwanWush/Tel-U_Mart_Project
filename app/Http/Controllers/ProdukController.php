@@ -23,7 +23,6 @@ class ProdukController extends Controller
 
     public function create()
     {
-        // Ambil kategori dari tabel kategori_produk
         $kategori = KategoriProduk::orderBy('id')->get();
         $mart = Mart::all();
         return view('produk.create', compact('kategori', 'mart'));

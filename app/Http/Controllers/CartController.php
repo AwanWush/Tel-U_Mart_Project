@@ -28,7 +28,6 @@ class CartController extends Controller
 
         $produk = Produk::findOrFail($request->product_id);
 
-        // cek stok & status
         if ($produk->stok < 1 || $produk->status_ketersediaan !== 'Tersedia') {
             return back()->with('error', 'Stok produk habis');
         }
