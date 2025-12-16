@@ -23,3 +23,4 @@ class CartItem extends Model
         return $this->belongsTo(Produk::class, 'product_id');
     }
 }
+
